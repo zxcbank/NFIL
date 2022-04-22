@@ -2,6 +2,40 @@
 #include <stdlib.h>
 #include "PIC.H"
 
+void Swap(byte *A, byte *B)
+{
+  byte tmp = *A;
+
+  *A = *B;
+  *B = tmp;
+}
+void QuickSort(byte *A, int N)
+{
+
+  int b = 0, e = N - 1;
+  int x = A[N / 2];
+  
+  if (N < 2)
+    return;
+  while (b <= e)
+  {
+    while (A[b] < x)
+      b++;
+    while (A[e] > x)
+      e--;
+    if (b <= e)
+    {
+      if (b != e)
+        Swap( &A[b], &A[e] );
+      b++;
+      e--;
+    }
+  }
+  
+  QuickSort( A, e + 1 );
+  QuickSort( A + b, N - b );
+  
+}
 
 void PicFilterRoberts(PIC *PDest, PIC *PSrc, double Alpha)
 {
